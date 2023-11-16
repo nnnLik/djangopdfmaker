@@ -14,6 +14,11 @@ class ServerSettings(BaseApplicationSettings):
     ALLOWED_HOSTS: List[str] = ["*"]
 
 
+class CelerySettings(BaseApplicationSettings):
+    CELERY_BROKER_URL: str
+    CELERY_RESULT_BACKEND: str
+
+
 class DatabaseSettings(BaseApplicationSettings):
     DB_ENGINE: str
     DB_NAME: str
@@ -23,9 +28,10 @@ class DatabaseSettings(BaseApplicationSettings):
     DB_PORT: int
 
 
-class Settings(ServerSettings, DatabaseSettings):
+class Settings:
     server: ServerSettings = ServerSettings()
     database: DatabaseSettings = DatabaseSettings()
+    celery: CelerySettings = CelerySettings()
 
 
 settings: Settings = Settings()
