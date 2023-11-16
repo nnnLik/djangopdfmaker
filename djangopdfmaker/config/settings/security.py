@@ -1,4 +1,4 @@
-from .const import settings
+from .settings import settings
 
 AUTH_PASSWORD_VALIDATORS = [
     {
