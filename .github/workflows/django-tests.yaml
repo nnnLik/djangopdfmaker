@@ -35,4 +35,5 @@ jobs:
 
       - name: Run tests
         run: |
+          cd djangopdfmaker
           python manage.py test
