@@ -1,4 +1,13 @@
 .venv
 __pycache__
-.log
+*.log
 .env
+
+.DS_Store
+
+src/*.pdf
+src/*.html
+
+static/
+
+Makefile

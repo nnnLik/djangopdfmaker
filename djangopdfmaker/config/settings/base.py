@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from .const import settings
+from .settings import settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "drf_yasg",
+    "src.core",
+    "src.common",
 ]
 
 TEMPLATES = [
@@ -56,6 +58,10 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Etc/UTC"
 USE_I18N = True
 USE_TZ = True
+
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static/"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media/"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
