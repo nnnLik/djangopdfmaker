@@ -1,5 +1,14 @@
 # Django PDF Maker
 
+<p align="center">
+   <a href="https://github.com/nnnLik/djangopdfmaker/actions/workflows/django-tests.yaml">
+        <img src="https://github.com/nnnLik/djangopdfmaker/actions/workflows/django-tests.yaml/badge.svg?branch=master">
+    <a href="https://github.com/python/cpython">
+     <img src="https://img.shields.io/badge/Python-3.11-FF1493.svg"></a>
+    <a href="https://github.com/nnnLik/social_network-django">
+        <img src="https://img.shields.io/github/repo-size/nnnLik/social_network-django"></a>
+</p>
+
 This is a service designed to generate PDF files from a URL or HTML file. The service is built using Django, Django Rest Framework (DRF), Docker and Celery.
 
 ### Project Structure
