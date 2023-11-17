@@ -12,6 +12,13 @@ The project includes the following components:
 * Redis: Message Broker, for Celery.
 * Flower: Celery monitoring tool
 
+### Continuous Integration (CI)
+
+After each push to the main branch, a Continuous Integration (CI) pipeline is triggered. This pipeline includes the following steps:
+
+1. __Linting__: The code is checked for adherence to coding standards using a linter.
+2. __Testing__: The test suite is executed to ensure the functionality of the application.
+
 ### Installation
 
 1. Clone the repository to your local machine.
