@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings
 class BaseApplicationSettings(BaseSettings):
     class Config:
         env_file = ".env"
+        extra = "allow"
 
 
 class ServerSettings(BaseApplicationSettings):
