@@ -1,25 +1,30 @@
 import uuid
 
-from django.contrib.auth.models import User
 from django.db import models
+from src.common.utils import generate_unique_filename
 
 
 class Task(models.Model):
-    STATUS_CHOICES = [
-        ("in_progress", "IN PROGRESS"),
-        ("completed", "COMPLETED"),
-        ("error", "ERROR"),
-    ]
+    class TaskStatus(models.TextChoices):
+        IN_PROGRESS = "IN_PROGRESS", "IN PROGRESS"
+        COMPLETED = "COMPLETED", "COMPLETED"
+        ERROR = "ERROR", "ERROR"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default="in_progress", db_index=True
+        max_length=20,
+        choices=TaskStatus.choices,
+        default=TaskStatus.IN_PROGRESS,
+        db_index=True,
     )
-    url = models.URLField(null=True, blank=True)
-    html_file = models.FileField(upload_to="html_files/", null=True, blank=True)
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True, db_index=True
+    status_message = models.TextField(null=True, blank=True)
+    source_url = models.URLField(null=True, blank=True)
+    html_source_file = models.FileField(
+        upload_to=generate_unique_filename, null=True, blank=True
+    )
+    generated_pdf = models.OneToOneField(
+        "GeneratedPDF", null=True, on_delete=models.SET_NULL, db_index=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -30,7 +35,4 @@ class Task(models.Model):
 
 class GeneratedPDF(models.Model):
     pdf_file = models.FileField(upload_to="generated_pdfs/")
-    task = models.OneToOneField(
-        Task, null=True, on_delete=models.SET_NULL, db_index=True
-    )
     created_at = models.DateTimeField(auto_now_add=True)

@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "src.core",
+    "src.common",
 ]
 
 TEMPLATES = [
