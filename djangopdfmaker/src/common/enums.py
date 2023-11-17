@@ -1,6 +1,6 @@
-from enum import Enum
+from django.db import models
 
 
-class ContentType(Enum):
+class ContentType(models.TextChoices):
     FILE = "file"
     URL = "url"
