@@ -2,18 +2,21 @@ import requests
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import transaction
+from src.common.enums import ContentType
 from weasyprint import HTML
 
 from ..models import GeneratedPDF, Task
 
 
 class TaskServices:
-    def process_html_to_pdf(self, task_id: int, content_type: str, to_pdf: str) -> None:
+    def process_html_to_pdf(
+        self, task_id: int, content_type: ContentType, to_pdf: str
+    ) -> None:
         try:
             match (content_type):
-                case "url":
+                case ContentType.URL.value:
                     pdf_content = self._generate_pdf_from_url(to_pdf)
-                case "file":
+                case ContentType.FILE.value:
                     pdf_content = self._generate_pdf_from_file_path(to_pdf)
                 case _:
                     raise ValueError("Invalid source type.")
@@ -41,7 +44,7 @@ class TaskServices:
 
         return pdf_content
 
-    def _save_pdf(self, pdf_content: str, task_id: int) -> str:
+    def _save_pdf(self, pdf_content: bytes, task_id: int) -> str:
         pdf_file_name = f"generated_pdfs/{task_id}.pdf"
         pdf_path = default_storage.save(pdf_file_name, ContentFile(pdf_content))
         return pdf_path

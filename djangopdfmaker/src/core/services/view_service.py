@@ -1,6 +1,7 @@
 from typing import Tuple, Union
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from src.common.enums import ContentType
 from src.core.tasks.to_pdf import process_to_pdf
 
 from ..models import Task
@@ -8,7 +9,7 @@ from ..models import Task
 
 class ViewServices:
     def generate_pdf_from_source(
-        self, to_pdf: Union[str, InMemoryUploadedFile], content_type: str
+        self, to_pdf: Union[str, InMemoryUploadedFile], content_type: ContentType
     ) -> Tuple[int, str]:
         task_obj = self._create_task(to_pdf, content_type)
         task_id = task_obj.id
@@ -25,8 +26,8 @@ class ViewServices:
         self, to_pdf: Union[str, InMemoryUploadedFile], content_type: str
     ) -> Task:
         return Task.objects.create(
-            source_url=to_pdf if content_type == "url" else None,
-            html_source_file=to_pdf if content_type == "file" else None,
+            source_url=to_pdf if content_type == ContentType.URL else None,
+            html_source_file=to_pdf if content_type == ContentType.FILE else None,
         )
 
 
