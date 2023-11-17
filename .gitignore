@@ -5,8 +5,7 @@ __pycache__
 
 .DS_Store
 
-src/*.pdf
-src/*.html
+media/
 
 static/
 
