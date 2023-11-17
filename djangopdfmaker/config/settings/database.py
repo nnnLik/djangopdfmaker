@@ -1,3 +1,5 @@
+import sys
+
 from .settings import settings
 
 DATABASES = {
@@ -10,3 +12,8 @@ DATABASES = {
         "PORT": settings.database.DB_PORT,
     }
 }
+
+if "test" in sys.argv:
+    DATABASES = {
+        "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}
+    }
