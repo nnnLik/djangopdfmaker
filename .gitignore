@@ -5,7 +5,9 @@ __pycache__
 
 .DS_Store
 
-*.pdf
-*.html
+src/*.pdf
+src/*.html
 
 static/
+
+Makefile
