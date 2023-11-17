@@ -57,20 +57,18 @@ class TaskServicesTestCase(TestCase):
 class ViewServicesTestCase(TestCase):
     @mock.patch("src.core.tasks.process_to_pdf.delay")
     def test_generate_pdf_from_source(self, mock_delay):
-        content_type = ContentType.FILE
-
         pdf_path = "tests/core/fixtures/fixt_1.html"
         file_content = self._get_bytes_from_source(pdf_path)
 
         uploaded_file = SimpleUploadedFile("some_ultra_data.html", file_content)
         task_id, msg = view_services.generate_pdf_from_source(
-            uploaded_file, content_type
+            uploaded_file, ContentType.FILE
         )
 
         task_obj = Task.objects.get(id=task_id)
 
         mock_delay.assert_called_once_with(
-            task_id, content_type, task_obj.html_source_file.path
+            task_id, ContentType.FILE, task_obj.html_source_file.path
         )
 
         self.assertIsNotNone(task_id)
