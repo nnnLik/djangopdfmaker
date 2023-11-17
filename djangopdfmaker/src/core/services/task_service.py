@@ -14,9 +14,9 @@ class TaskServices:
     ) -> None:
         try:
             match (content_type):
-                case ContentType.URL.value:
+                case ContentType.URL:
                     pdf_content = self._generate_pdf_from_url(to_pdf)
-                case ContentType.FILE.value:
+                case ContentType.FILE:
                     pdf_content = self._generate_pdf_from_file_path(to_pdf)
                 case _:
                     raise ValueError("Invalid source type.")
