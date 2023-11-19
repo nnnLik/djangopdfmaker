@@ -61,6 +61,10 @@ CELERY_RESULT_BACKEND=redis://redis:6379
 docker-compose up --build
 ```
 
+### Weekly cleanup task
+
+A weekly task to delete old PDF and HTML files has been added to keep the system up to date. Perhaps in the future, instead of deleting old files, they can be put into a zip archive
+
 ### Usage
 
 * Access the admin panel at /admin with the following credentials:
