@@ -23,12 +23,26 @@ services:
     depends_on:
       - database
 
-  celery:
+  celery-worker:
     build:
       context: djangopdfmaker/
       dockerfile: Dockerfile
-    container_name: celery
-    command: celery -A config.settings worker --loglevel=debug --logfile=log/celery.log
+    container_name: celery-worker
+    command: celery -A config.settings worker --loglevel=debug --logfile=log/celery-worker.log
+    volumes:
+      - ./djangopdfmaker/:/usr/src/app/
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - redis
+
+  celery-beat:
+    build:
+      context: djangopdfmaker/
+      dockerfile: Dockerfile
+    container_name: celery-beat
+    command: celery -A config.settings beat --loglevel=debug --logfile=log/celery-beat.log
     volumes:
       - ./djangopdfmaker/:/usr/src/app/
     env_file:
@@ -50,7 +64,8 @@ services:
     depends_on:
       - database
       - redis
-      - celery
+      - celery-worker
+      - celery-beat
 
   server:
     restart: always
@@ -58,6 +73,12 @@ services:
       context: djangopdfmaker/
       dockerfile: Dockerfile
     container_name: djangopdfmaker
+    command: >
+      sh -c "
+      python manage.py migrate  --noinput &&
+      python manage.py createadmin &&
+      python manage.py runserver 0.0.0.0:8000
+      "
     volumes:
       - ./djangopdfmaker/:/usr/src/app/
     ports:
@@ -67,14 +88,9 @@ services:
     depends_on:
       - database
       - redis
-      - celery
+      - celery-worker
+      - celery-beat
       - flower
-    command: >
-      sh -c "
-      python manage.py migrate  --noinput &&
-      python manage.py createadmin &&
-      python manage.py runserver 0.0.0.0:8000
-      "
 
 volumes:
   db-data:
