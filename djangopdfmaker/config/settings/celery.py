@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from celery import Celery
 
@@ -23,3 +24,12 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Etc/UTC"
 CELERY_ENABLE_UTC = True
+
+CELERY_WORKER_CONCURRENCY = settings.celery.CELERY_WORKER_CONCURRENCY
+
+CELERY_BEAT_SCHEDULE = {
+    "cleanup_old_files": {
+        "task": "src.common.tasks.clear.cleanup_old_files",
+        "schedule": timedelta(weeks=1),
+    },
+}

@@ -1,3 +1,4 @@
+from multiprocessing import cpu_count
 from typing import List
 
 from pydantic_settings import BaseSettings
@@ -18,6 +19,7 @@ class ServerSettings(BaseApplicationSettings):
 class CelerySettings(BaseApplicationSettings):
     CELERY_BROKER_URL: str
     CELERY_RESULT_BACKEND: str
+    CELERY_WORKER_CONCURRENCY: int = cpu_count() / 2
 
 
 class DatabaseSettings(BaseApplicationSettings):

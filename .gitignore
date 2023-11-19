@@ -10,3 +10,5 @@ media/
 static/
 
 Makefile
+
+*-schedule
