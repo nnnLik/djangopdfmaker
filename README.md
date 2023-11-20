@@ -106,8 +106,7 @@ Password: admin
     },
     "status": "COMPLETED" | "IN_PROGRESS" | "ERROR",
     "status_message": "Task completed successfully.",
-    "source_url": "....",
-    "html_source_file": null,
+    "source": "...",
     "created_at": "17.11.2023 06:01:45",
     "updated_at": "17.11.2023 06:01:45"
 }
