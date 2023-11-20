@@ -41,6 +41,7 @@ class GeneratedPDFSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     generated_pdf = serializers.SerializerMethodField()
+    source = serializers.SerializerMethodField()
 
     def get_generated_pdf(self, obj):
         try:
@@ -49,6 +50,22 @@ class TaskSerializer(serializers.ModelSerializer):
         except GeneratedPDF.DoesNotExist:
             return None
 
+    def get_source(self, obj):
+        if obj.html_source_file:
+            return obj.html_source_file.url
+        elif obj.source_url:
+            return obj.source_url
+
+        return None
+
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = (
+            "id",
+            "status",
+            "status_message",
+            "generated_pdf",
+            "source",
+            "created_at",
+            "updated_at",
+        )
