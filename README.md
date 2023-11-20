@@ -120,3 +120,7 @@ Run the tests using the following command:
 ```bash
 docker exec -it djangopdfmaker ./manage.py test
 ```
+
+### TODO
+* [ ] Setup the default source size (kb)
+* [ ] Tracking the celery tasks status by callbacks
