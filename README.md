@@ -96,10 +96,10 @@ Password: admin
 {
     "id": "2da82d6c-13a3-455d-a555-9d3c95caad5a",
     "generated_pdf": {
-    "id": 32,
-    "pdf_file": "/media/generated_pdfs/2da82d6c-13a3-455d-a555-9d3c95caad5a.pdf",
-    "created_at": "17.11.2023 06:02:16"
-    },
+       "id": 32,
+       "pdf_file": "/media/generated_pdfs/2da82d6c-13a3-455d-a555-9d3c95caad5a.pdf",
+       "created_at": "17.11.2023 06:02:16"
+       },
     "status": "COMPLETED" | "IN_PROGRESS" | "ERROR",
     "status_message": "Task completed successfully.",
     "source_url": "....",
