@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 
 from celery import Celery
+from kombu import Exchange, Queue
 
 from .settings import settings
 
@@ -12,7 +13,6 @@ app = Celery(
     broker_connection_retry_on_startup=True,
 )
 app.config_from_object("django.conf:settings", namespace="CELERY")
-
 app.autodiscover_tasks()
 
 CELERY_BROKER_URL = settings.celery.CELERY_BROKER_URL
@@ -33,3 +33,5 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(weeks=1),
     },
 }
+
+app.conf.task_queues = (Queue("to_pdf", Exchange("to_pdf"), routing_key="to_pdf"),)

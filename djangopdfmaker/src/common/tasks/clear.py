@@ -1,8 +1,8 @@
-from celery import shared_task
+from config.settings.celery import app
 
 from ..services import services
 
 
-@shared_task
+@app.task()
 def cleanup_old_files():
     services.clean_old_files()
